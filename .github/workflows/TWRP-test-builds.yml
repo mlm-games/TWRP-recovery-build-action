@@ -13,13 +13,10 @@ jobs:
       fail-fast: false
       matrix:
         device: 
-          - { manifest_branch: 'twrp-12.1', device_tree: 'https://github.com/mlm-games/twrp_m02s', device_tree_branch: 'twrp-12.1', device_name: 'm02s', makefile_name: 'omni_m02s', build_target: 'recovery' }
-          - { manifest_branch: 'twrp-9.0', device_tree: 'https://github.com/mlm-games/android_device_7305x', device_tree_branch: 'twrp-9.0', device_name: '7305x', makefile_name: 'omni_7305x', build_target: 'recovery' }
-          - { manifest_branch: 'twrp-7.1', device_tree: 'https://github.com/mlm-games/android_device_7304F', device_tree_branch: 'twrp-7.1', device_name: '7304F', makefile_name: 'omni_7304F', build_target: 'recovery' }
+          - { manifest_branch: 'twrp-12.1', device_tree: 'https://github.com/mlm-games/twrp_galaxy_m02s', device_tree_branch: 'twrp-12.1', device_name: 'm02s', makefile_name: 'twrp_m02s', build_target: 'recovery' }
+          - { manifest_branch: 'twrp-9.0', device_tree: 'https://github.com/mlm-games/twrp_lenovo_7305x_m7_mt8765_P', device_tree_branch: 'twrp-9.0', device_name: 'mt8765_P', makefile_name: 'omni_mt8765_P', build_target: 'recovery' }
+          - { manifest_branch: 'twrp-7.1', device_tree: 'https://github.com/mlm-games/twrp_lenovo_7304F', device_tree_branch: 'twrp-7.1', device_name: '7304F', makefile_name: 'omni_7304F', build_target: 'recovery' }
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-
     - name: Clean-up
       uses: rokibhasansagar/slimhub_actions@main
 
