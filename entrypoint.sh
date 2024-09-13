@@ -10,7 +10,10 @@ set_output() {
 echo "Installing necessary packages..."
 sudo apt-get update
 sudo apt-get -y upgrade
-sudo apt-get install -y bc bison build-essential curl flex g++-multilib gcc-multilib git gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev python3 bash tmux ccache curl unzip
+sudo apt-get install -y bc bison build-essential curl flex g++-multilib gcc-multilib git gnupg gperf imagemagick \
+    lib32ncurses5-dev lib32readline-dev lib32z1-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev \
+    libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev \
+    python3 python2 bash tmux ccache curl unzip
 
 # Install OpenJDK 8
 echo "Installing OpenJDK 8..."
@@ -128,10 +131,15 @@ fi
 if [ "$CHECK_LEGACY_BRANCH" == "true" ]; then
     echo "Installing Python 2 for legacy branches..."
     sudo apt-get install -y python2
-    sudo ln -sf /usr/bin/python2 /usr/bin/python
+    # Use update-alternatives to set python to point to python2
+    sudo update-alternatives --install /usr/bin/python python /usr/bin/python2 1
+    sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 2
+    sudo update-alternatives --set python /usr/bin/python2
 else
     echo "No need to install Python 2 for this branch."
-    sudo ln -sf /usr/bin/python3 /usr/bin/python
+    # Ensure python points to python3
+    sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+    sudo update-alternatives --set python /usr/bin/python3
 fi
 
 # Set OUTPUT_DIR
