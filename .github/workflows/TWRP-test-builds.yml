@@ -37,5 +37,5 @@ jobs:
     - name: Upload Recovery Image
       uses: actions/upload-artifact@v4
       with:
-        name: TWRP-Recovery-${{ matrix.device.device_name }}
+        name: TWRP-Recovery-${{ matrix.device.manifest_branch }}
         path: ${{ env.OUTPUT_DIR }}/*.img
