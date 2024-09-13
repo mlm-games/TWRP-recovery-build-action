@@ -9,7 +9,7 @@ inputs:
     type: string
   DEVICE_TREE:
     description: 'Device Tree URL (your device tree repository)'
-    default: "https://github.com/${{ github.repository }}"
+    default: ''
     type: string
   DEVICE_TREE_BRANCH:
     description: 'Device Tree Branch (leave blank to use the default branch of the repository)'
