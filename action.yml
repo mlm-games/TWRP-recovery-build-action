@@ -1,0 +1,60 @@
+name: "TWRP Build Action"
+author: 'Ragebreaker'
+description: "A GitHub action to build TeamWin Recovery Project (TWRP) for a specified device."
+
+inputs:
+  MANIFEST_BRANCH:
+    description: 'TWRP Manifest Branch (e.g., twrp-12.1). If not provided, the action will use the default manifest branch.'
+    default: 'twrp-12.1'
+    type: string
+  DEVICE_TREE:
+    description: 'Device Tree URL (your device tree repository)'
+    default: "https://github.com/${{ github.repository }}"
+    type: string
+  DEVICE_TREE_BRANCH:
+    description: 'Device Tree Branch (leave blank to use the default branch of the repository)'
+    default: ''
+    type: string
+  DEVICE_NAME:
+    description: 'Specify your Device Codename (leave blank to auto-detect)'
+    default: ''
+    type: string
+  DEVICE_PATH:
+    description: 'Specify your Device Path (leave blank to auto-detect)'
+    default: ''
+    type: string
+  MAKEFILE_NAME:
+    description: 'Specify your Makefile Name (leave blank to auto-detect)'
+    default: ''
+    type: string
+  BUILD_TARGET:
+    description: 'Specify your Build Target'
+    default: 'recovery'
+    type: choice
+    options:
+      - boot
+      - recovery
+      - vendorboot
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up environment variables
+      shell: bash
+      run: |
+        echo "MANIFEST_BRANCH=${{ inputs.MANIFEST_BRANCH }}" >> $GITHUB_ENV
+        echo "DEVICE_TREE=${{ inputs.DEVICE_TREE }}" >> $GITHUB_ENV
+        echo "DEVICE_TREE_BRANCH=${{ inputs.DEVICE_TREE_BRANCH }}" >> $GITHUB_ENV
+        echo "DEVICE_NAME=${{ inputs.DEVICE_NAME }}" >> $GITHUB_ENV
+        echo "DEVICE_PATH=${{ inputs.DEVICE_PATH }}" >> $GITHUB_ENV
+        echo "MAKEFILE_NAME=${{ inputs.MAKEFILE_NAME }}" >> $GITHUB_ENV
+        echo "BUILD_TARGET=${{ inputs.BUILD_TARGET }}" >> $GITHUB_ENV
+
+    - name: 'Build TWRP'
+      shell: bash
+      run: |
+        bash $GITHUB_ACTION_PATH/entrypoint.sh
+
+branding:
+  icon: "terminal"
+  color: "blue"
