@@ -35,7 +35,7 @@ jobs:
         BUILD_TARGET: '${{ matrix.device.build_target }}'
 
     - name: Upload Recovery Image
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: TWRP-Recovery-${{ matrix.device.device_name }}
         path: ${{ env.OUTPUT_DIR }}/*.img
