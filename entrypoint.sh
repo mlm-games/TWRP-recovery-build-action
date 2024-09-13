@@ -173,5 +173,3 @@ if [ -f "$zip_file" ]; then
 else
     echo "::warning::Recovery ZIP not found."
 fi
-
-fi
