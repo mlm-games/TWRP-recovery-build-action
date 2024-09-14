@@ -62,6 +62,11 @@ fi
 echo "Syncing TWRP repo..."
 repo sync -j$(nproc --all) --force-sync
 
+
+# Save the temp tree in the manifest dir.
+pushd "$MANIFEST_DIR"
+
+
 # If DEVICE_TREE is not provided, default to the current repository
 if [ -z "$DEVICE_TREE" ]; then
     DEVICE_TREE="https://github.com/${GITHUB_REPOSITORY}"
@@ -119,7 +124,7 @@ if [ -z "$DEVICE_NAME" ] || [ -z "$DEVICE_PATH" ] || [ -z "$MAKEFILE_NAME" ]; th
     fi
 
     # Navigate back to the MANIFEST_DIR
-    cd "$MANIFEST_DIR"
+    popd
 
     # Move the device tree into the correct directory
     echo "Moving device tree to $DEVICE_PATH"
