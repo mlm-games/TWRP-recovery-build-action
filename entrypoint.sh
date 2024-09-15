@@ -84,35 +84,35 @@ else
     git clone "$DEVICE_TREE" tmp_device_tree
 fi
 
-# Check if DEVICE_NAME or DEVICE_PATH or MAKEFILE_NAME are not provided
-if [ -z "$DEVICE_NAME" ] || [ -z "$DEVICE_PATH" ] || [ -z "$MAKEFILE_NAME" ]; then
+# Check if DEVICE_NAME or DEVICE_PATH are default or not provided
+if [ -z "$DEVICE_NAME" ] || [ "$DEVICE_NAME" == "codename" ] || [ -z "$DEVICE_PATH" ] || [ "$DEVICE_PATH" == "device/company/codename" ]; then
     echo "Extracting variables from .mk files..."
     cd tmp_device_tree
 
     # Initialize variables
+    DEVICE_MAKEFILE=""
+    DEVICE_DIRECTORY=""
     DEVICE_NAME=""
     BRAND=""
-    DEVICE_PATH=""
-    MAKEFILE_NAME=""
-
+    
     # Search for .mk files recursively in the device tree
     mk_files=$(find . -type f -name '*.mk')
-
+    
     # Loop through each .mk file found
     for file in $mk_files; do
         # Extract variables using sed
-        product_name=$(sed -n 's/^[[:space:]]*PRODUCT_NAME[[:space:]]*:=\s*\(.*\)/\1/p' "$file")
-        product_device=$(sed -n 's/^[[:space:]]*PRODUCT_DEVICE[[:space:]]*:=\s*\(.*\)/\1/p' "$file")
-        product_manufacturer=$(sed -n 's/^[[:space:]]*PRODUCT_MANUFACTURER[[:space:]]*:=\s*\(.*\)/\1/p' "$file")
-        if [[ -n "$product_name" && -n "$product_device" && -n "$product_manufacturer" ]]; then
-            DEVICE_NAME="$product_device"
-            BRAND="$product_manufacturer"
-            DEVICE_PATH="device/$BRAND/$DEVICE_NAME"
-            MAKEFILE_NAME="${product_name}"
+        makefile=$(sed -n 's/^[[:space:]]*PRODUCT_NAME[[:space:]]*:=\s*\(.*\)/\1/p' "$file")
+        brand=$(sed -n 's/^[[:space:]]*PRODUCT_BRAND[[:space:]]*:=\s*\(.*\)/\1/p' "$file")
+        codename=$(sed -n 's/^[[:space:]]*PRODUCT_DEVICE[[:space:]]*:=\s*\(.*\)/\1/p' "$file")
+        if [[ -n "$makefile" && -n "$brand" && -n "$codename" ]]; then
+            DEVICE_MAKEFILE="$makefile"
+            BRAND="$brand"
+            DEVICE_NAME="$codename"
+            DEVICE_PATH="device/$brand/$codename"
+            echo "DEVICE_MAKEFILE=${DEVICE_MAKEFILE}" >> $GITHUB_ENV
             echo "DEVICE_NAME=${DEVICE_NAME}" >> $GITHUB_ENV
             echo "BRAND=${BRAND}" >> $GITHUB_ENV
             echo "DEVICE_PATH=${DEVICE_PATH}" >> $GITHUB_ENV
-            echo "MAKEFILE_NAME=${MAKEFILE_NAME}" >> $GITHUB_ENV
             break
         fi
     done
