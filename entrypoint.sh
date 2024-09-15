@@ -161,9 +161,10 @@ echo "OUTPUT_DIR=${OUTPUT_DIR}" >> $GITHUB_ENV
 # Build TWRP
 echo "Building TWRP..."
 cd "$MANIFEST_DIR"
+set +e
 source build/envsetup.sh
 export ALLOW_MISSING_DEPENDENCIES=true
-
+set -e
 lunch "${MAKEFILE_NAME}-eng"
 make clean
 make -j$(nproc --all) "${BUILD_TARGET}image"
