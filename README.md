@@ -169,7 +169,7 @@ In this example:
 - **Swap Space:** For devices with large build requirements, incorporating swap space can improve build success and performance. Use the [pierotofy/set-swap-space](https://github.com/pierotofy/set-swap-space) action to add swap space to your runner.
 - **Python Version:** The action adjusts the Python version based on the `MANIFEST_BRANCH`. For legacy branches, it uses Python 2; for current branches, it ensures that Python 3 is used.
 - **LDCHECK:** LDCHECK is used for checking missing dependencies in the recovery's blobs. It is not included but can be used via another action.
-
+- **Branches:** [Some branches](https://twrp.me/faq/howtocompiletwrp.html) can be used for other versions of android (like twrp-8.1 can be used for 7.1, 11 for 10 etc)
 ---
 
 ## Support
