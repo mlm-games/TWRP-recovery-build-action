@@ -187,10 +187,10 @@ else
     echo "::warning::Recovery image not found."
 fi
 
-if [ -f "$zip_file" ]; then
-    echo "CHECK_ZIP_IS_OK=true" >> $GITHUB_ENV
-    set_output "out_zip" "$zip_file"
-    echo "MD5_ZIP=$(md5sum "$zip_file" | cut -d ' ' -f 1)" >> $GITHUB_ENV
-else
-    echo "::warning::Recovery ZIP not found."
-fi
+# if [ -f "$zip_file" ]; then
+#     echo "CHECK_ZIP_IS_OK=true" >> $GITHUB_ENV
+#     set_output "out_zip" "$zip_file"
+#     echo "MD5_ZIP=$(md5sum "$zip_file" | cut -d ' ' -f 1)" >> $GITHUB_ENV
+# else
+#     echo "::warning::Recovery ZIP not found."
+# fi
