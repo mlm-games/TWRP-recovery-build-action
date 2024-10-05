@@ -41,7 +41,7 @@ if [ -z "$MANIFEST_BRANCH" ] || [ "$MANIFEST_BRANCH" == "twrp-11" ] || [ "$MANIF
     MANIFEST_URL="https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git"
     CHECK_LEGACY_BRANCH="false"
 else
-    MANIFEST_URL="https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git"
+    MANIFEST_URL="https://github.com/mlm-games/platform_manifest_twrp_omni.git"
     CHECK_LEGACY_BRANCH="true"
 fi
 
