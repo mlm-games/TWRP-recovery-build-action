@@ -37,7 +37,7 @@ git config --global user.name "$GITHUB_ACTOR"
 git config --global user.email "$GITHUB_ACTOR_ID+$GITHUB_ACTOR@users.noreply.github.com"
 
 # Determine MANIFEST_URL based on MANIFEST_BRANCH
-if [ -z "$MANIFEST_BRANCH" ] || [ "$MANIFEST_BRANCH" == "twrp-11" ] || [ "$MANIFEST_BRANCH" == "twrp-12.1" ]; then
+if [ -z "$MANIFEST_BRANCH" ] || [ "$MANIFEST_BRANCH" == "twrp-11" ] || [ "$MANIFEST_BRANCH" == "twrp-12.1" ] || [ "$MANIFEST_BRANCH" == "twrp-14" ]; then
     MANIFEST_URL="https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git"
     CHECK_LEGACY_BRANCH="false"
 else
